@@ -318,3 +318,28 @@ export async function updateItemWithImages(
 	}
 }
 
+/**
+ * Calculate the total estimated income if every item sold at full price.
+ */
+export async function getTotalEstimatedIncome(): Promise<number> {
+	try {
+		const result = await queryOne<{ total: string | number }>(
+			`
+			SELECT COALESCE(SUM(price), 0) AS total
+			FROM items
+		`,
+		);
+
+		if (!result) {
+			return 0;
+		}
+
+		const total =
+			typeof result.total === "string" ? Number.parseFloat(result.total) : result.total;
+		return Number.isFinite(total) ? total : 0;
+	} catch (error) {
+		console.error("Get total estimated income error:", error);
+		return 0;
+	}
+}
+
