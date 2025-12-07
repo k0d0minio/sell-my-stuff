@@ -1,9 +1,13 @@
-# Website Starter Template!
+# Second Hand Store
 
-A production-ready Next.js starter template for building modern websites and landing pages. Built with TypeScript, Tailwind CSS, shadcn/ui, and comprehensive developer tooling.
+A personal second-hand marketplace application built with Next.js. Browse and purchase second-hand items with a simple, modern interface. Built with TypeScript, Tailwind CSS, shadcn/ui, and comprehensive developer tooling.
 
 ## Features
 
+- 🛍️ **Item Management** - Browse, search, and filter second-hand items by category
+- 📸 **Image Uploads** - Upload and manage item images with Supabase storage
+- 📝 **Reservations** - Contact form for item reservations and inquiries
+- 🔐 **Admin Panel** - Secure admin area for managing items and viewing reservations
 - ⚡ **Next.js 16** - Latest App Router with React Server Components
 - 🎨 **shadcn/ui** - Beautiful, accessible component library
 - 🎭 **Framer Motion** - Smooth animations and transitions
@@ -49,7 +53,7 @@ Edit `.env.local` and add your configuration:
 ```env
 RESEND_API_KEY=re_your_api_key_here
 RESEND_FROM_EMAIL=noreply@yourdomain.com
-RESEND_TO_EMAIL=contact@yourdomain.com
+RESEND_EMAIL_TO=contact@yourdomain.com
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
 # Linear Error Reporting (Production only)
@@ -118,7 +122,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 1. Sign up for a [Resend](https://resend.com) account
 2. Create an API key in the Resend dashboard
 3. Add your API key to `.env.local` as `RESEND_API_KEY`
-4. Configure `RESEND_FROM_EMAIL` and `RESEND_TO_EMAIL`
+4. Configure `RESEND_FROM_EMAIL` and `RESEND_EMAIL_TO`
 
 ### Vercel Analytics
 
@@ -300,7 +304,7 @@ This project can be deployed to any platform that supports Next.js:
 |----------|-------------|
 | `RESEND_API_KEY` | Resend API key for email functionality |
 | `RESEND_FROM_EMAIL` | Email address to send from |
-| `RESEND_TO_EMAIL` | Email address to send to |
+| `RESEND_EMAIL_TO` | Email address to send to |
 
 ### Site Configuration
 

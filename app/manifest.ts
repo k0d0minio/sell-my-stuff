@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
 
-const siteName = process.env.NEXT_PUBLIC_SITE_NAME || "Website Starter";
+const siteName = process.env.NEXT_PUBLIC_SITE_NAME || "Second Hand Store";
 const siteDescription =
 	process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
-	"A modern website starter template built with Next.js, TypeScript, and Tailwind CSS";
+	"Find great deals on second-hand items";
 const themeColor = process.env.NEXT_PUBLIC_THEME_COLOR || "#000000";
 
 export default function manifest(): MetadataRoute.Manifest {

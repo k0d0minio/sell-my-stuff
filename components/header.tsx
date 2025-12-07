@@ -2,24 +2,20 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/routing";
 
 const businessName =
 	process.env.NEXT_PUBLIC_BUSINESS_NAME ||
 	process.env.NEXT_PUBLIC_SITE_NAME ||
-	"Logo";
+	"Second Hand Store";
 
 export function Header() {
-	const t = useTranslations("header");
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
 	const navItems = [
-		{ href: "/", label: t("home") },
-		{ href: "/#features", label: t("features") },
-		{ href: "/#contact", label: t("contact") },
+		{ href: "/", label: "Home" },
 	];
 
 	return (
@@ -28,7 +24,7 @@ export function Header() {
 				<Link
 					href="/"
 					className="flex items-center space-x-2"
-					aria-label={`${businessName} - ${t("home")}`}
+					aria-label={`${businessName} - Home`}
 				>
 					<span className="text-xl font-bold">{businessName}</span>
 				</Link>
@@ -44,7 +40,6 @@ export function Header() {
 							{item.label}
 						</Link>
 					))}
-					<Button size="sm">{t("getStarted")}</Button>
 				</div>
 
 				{/* Mobile Menu Button */}
@@ -53,7 +48,7 @@ export function Header() {
 					size="icon"
 					className="md:hidden"
 					onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-					aria-label={mobileMenuOpen ? t("closeMenu") : t("openMenu")}
+					aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
 					aria-expanded={mobileMenuOpen}
 					aria-controls="mobile-navigation"
 				>
@@ -89,9 +84,6 @@ export function Header() {
 									{item.label}
 								</Link>
 							))}
-							<Button className="w-full mt-4" size="sm">
-								{t("getStarted")}
-							</Button>
 						</div>
 					</motion.div>
 				)}

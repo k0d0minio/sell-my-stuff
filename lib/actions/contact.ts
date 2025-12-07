@@ -99,7 +99,7 @@ export async function submitContactForm(
 		}
 
 		const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
-		const toEmail = process.env.RESEND_TO_EMAIL || "delivered@resend.dev";
+		const toEmail = process.env.RESEND_EMAIL_TO || "delivered@resend.dev";
 
 		// Send email using Resend
 		const { data: emailData, error } = await resend.emails.send({

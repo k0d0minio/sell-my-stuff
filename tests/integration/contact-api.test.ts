@@ -40,7 +40,7 @@ describe("submitContactForm Server Action", () => {
 		originalEnv = { ...process.env };
 		process.env.RESEND_API_KEY = "test-api-key";
 		process.env.RESEND_FROM_EMAIL = "test@example.com";
-		process.env.RESEND_TO_EMAIL = "recipient@example.com";
+		process.env.RESEND_EMAIL_TO = "recipient@example.com";
 		// Reset NODE_ENV to test default
 		vi.unstubAllEnvs();
 
@@ -193,7 +193,7 @@ describe("submitContactForm Server Action", () => {
 
 	it("should use default email addresses when env vars are not set", async () => {
 		delete process.env.RESEND_FROM_EMAIL;
-		delete process.env.RESEND_TO_EMAIL;
+		delete process.env.RESEND_EMAIL_TO;
 
 		mockResendSend.mockResolvedValueOnce({
 			data: { id: "email-123" },

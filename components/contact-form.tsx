@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle, CheckCircle2, Loader2, Mail } from "lucide-react";
-import { useTranslations } from "next-intl";
 import { useActionState, useEffect, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -33,24 +32,22 @@ type FormStatus = {
  * @internal
  */
 function SubmitButton({ pending }: { pending: boolean }) {
-	const t = useTranslations("contact.form");
-
 	return (
 		<Button
 			type="submit"
 			disabled={pending}
 			className="w-full"
-			aria-label={pending ? t("sendingAriaLabel") : t("sendAriaLabel")}
+			aria-label={pending ? "Sending message" : "Send message"}
 		>
 			{pending ? (
 				<>
 					<Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
-					{t("sending")}
+					Sending...
 				</>
 			) : (
 				<>
 					<Mail className="mr-2 h-4 w-4" aria-hidden="true" />
-					{t("sendMessage")}
+					Send Message
 				</>
 			)}
 		</Button>
@@ -74,18 +71,18 @@ async function formAction(
 		if (result.success) {
 			return {
 				type: "success",
-				message: "success", // Translation key, will be translated in component
+				message: "success",
 			};
 		}
 
 		return {
 			type: "error",
-			message: result.error || "error", // Translation key
+			message: result.error || "error",
 		};
 	} catch (error) {
 		return {
 			type: "error",
-			message: error instanceof Error ? error.message : "error", // Translation key
+			message: error instanceof Error ? error.message : "error",
 		};
 	}
 }
@@ -105,7 +102,6 @@ async function formAction(
  * ```
  */
 export function ContactForm() {
-	const t = useTranslations("contact.form");
 	const [state, formActionWithState] = useActionState(formAction, null);
 	const [isPending, startTransition] = useTransition();
 
@@ -144,9 +140,9 @@ export function ContactForm() {
 						name="name"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>{t("name")}</FormLabel>
+								<FormLabel>Name</FormLabel>
 								<FormControl>
-									<Input placeholder={t("namePlaceholder")} {...field} />
+									<Input placeholder="Your name" {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -158,11 +154,11 @@ export function ContactForm() {
 						name="email"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>{t("email")}</FormLabel>
+								<FormLabel>Email</FormLabel>
 								<FormControl>
 									<Input
 										type="email"
-										placeholder={t("emailPlaceholder")}
+										placeholder="your.email@example.com"
 										{...field}
 									/>
 								</FormControl>
@@ -176,10 +172,10 @@ export function ContactForm() {
 						name="message"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>{t("message")}</FormLabel>
+								<FormLabel>Message</FormLabel>
 								<FormControl>
 									<Textarea
-										placeholder={t("messagePlaceholder")}
+										placeholder="Your message..."
 										className="min-h-[120px]"
 										{...field}
 									/>
@@ -201,9 +197,11 @@ export function ContactForm() {
 								<AlertCircle className="h-4 w-4" aria-hidden="true" />
 							)}
 							<AlertDescription>
-								{state.message === "success" || state.message === "error"
-									? t(state.message as "success" | "error")
-									: state.message}
+								{state.message === "success"
+									? "Thank you! Your message has been sent successfully."
+									: state.message === "error"
+										? "Something went wrong. Please try again later."
+										: state.message}
 							</AlertDescription>
 						</Alert>
 					)}

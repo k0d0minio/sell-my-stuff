@@ -34,12 +34,26 @@ interface BreadcrumbList {
 	}>;
 }
 
+interface Product {
+	"@type": "Product";
+	name: string;
+	description: string;
+	image?: string[];
+	offers: {
+		"@type": "Offer";
+		price: string;
+		priceCurrency: string;
+		availability: string;
+	};
+	category?: string;
+}
+
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-const siteName = process.env.NEXT_PUBLIC_SITE_NAME || "Website Starter";
+const siteName = process.env.NEXT_PUBLIC_SITE_NAME || "Second Hand Store";
 const organizationName =
 	process.env.NEXT_PUBLIC_ORGANIZATION_NAME ||
 	process.env.NEXT_PUBLIC_SITE_NAME ||
-	"Website Starter";
+	"Second Hand Store";
 const organizationUrl =
 	process.env.NEXT_PUBLIC_ORGANIZATION_URL ||
 	process.env.NEXT_PUBLIC_SITE_URL ||
@@ -155,7 +169,7 @@ export function createWebSiteSchema(
 	const description =
 		options.description ||
 		process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
-		"A modern website starter template";
+		"Find great deals on second-hand items";
 
 	const schema: WithContext<WebSite> = {
 		"@context": "https://schema.org",
@@ -242,8 +256,69 @@ export function createBreadcrumbListSchema(
  * // Use in: <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: json }} />
  * ```
  */
+/**
+ * Options for creating a Product schema.
+ * @public
+ */
+export interface ProductSchemaOptions {
+	/** Product name */
+	name: string;
+	/** Product description */
+	description: string;
+	/** Product images (URLs) */
+	image?: string[];
+	/** Product price */
+	price: number;
+	/** Price currency (default: "USD") */
+	priceCurrency?: string;
+	/** Product category */
+	category?: string;
+	/** Product availability (default: "https://schema.org/InStock") */
+	availability?: string;
+}
+
+/**
+ * Creates a JSON-LD Product schema for structured data.
+ *
+ * This schema helps search engines understand product information and can enable
+ * rich snippets in search results.
+ *
+ * @param options - Configuration options for the product schema
+ * @returns A JSON-LD Product schema object with @context
+ *
+ * @example
+ * ```tsx
+ * const schema = createProductSchema({
+ *   name: "Vintage Chair",
+ *   description: "A beautiful vintage chair",
+ *   price: 150.00,
+ *   image: ["https://example.com/chair.jpg"],
+ *   category: "Furniture"
+ * });
+ * ```
+ */
+export function createProductSchema(
+	options: ProductSchemaOptions,
+): WithContext<Product> {
+	return {
+		"@context": "https://schema.org",
+		"@type": "Product",
+		name: options.name,
+		description: options.description,
+		...(options.image && options.image.length > 0 && { image: options.image }),
+		offers: {
+			"@type": "Offer",
+			price: options.price.toFixed(2),
+			priceCurrency: options.priceCurrency || "USD",
+			availability:
+				options.availability || "https://schema.org/InStock",
+		},
+		...(options.category && { category: options.category }),
+	};
+}
+
 export function generateStructuredDataScript(
-	schemas: Array<WithContext<Organization | WebSite | BreadcrumbList>>,
+	schemas: Array<WithContext<Organization | WebSite | BreadcrumbList | Product>>,
 ): string {
 	return JSON.stringify(schemas.length === 1 ? schemas[0] : schemas, null, 0);
 }

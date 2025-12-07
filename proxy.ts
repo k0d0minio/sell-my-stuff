@@ -1,10 +1,9 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { routing } from "./i18n/routing";
 
-export function proxy(request: NextRequest) {
+export default function proxy(request: NextRequest) {
 	const { pathname } = request.nextUrl;
 
-	// Skip locale handling for API routes, static files, and other excluded paths
+	// Skip handling for API routes, static files, and other excluded paths
 	const isExcludedPath =
 		pathname.startsWith("/api/") ||
 		pathname.startsWith("/_next/") ||
@@ -15,25 +14,6 @@ export function proxy(request: NextRequest) {
 
 	if (isExcludedPath) {
 		return NextResponse.next();
-	}
-
-	// Check if there is any supported locale in the pathname
-	const pathnameHasLocale = routing.locales.some(
-		(locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
-	);
-
-	// Redirect if there is no locale
-	if (!pathnameHasLocale) {
-		const locale = routing.defaultLocale;
-
-		// e.g. incoming request is /products
-		// The new URL is now /en/products
-		return NextResponse.redirect(
-			new URL(
-				`/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`,
-				request.url,
-			),
-		);
 	}
 
 	const response = NextResponse.next();

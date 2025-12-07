@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { routing } from "@/i18n/routing";
+import { getAllItems } from "@/lib/actions/items";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
@@ -64,53 +64,28 @@ const staticRoutes: SitemapRoute[] = [
 	},
 ];
 
-// Generate routes for all locales
-function generateLocalizedRoutes(): SitemapRoute[] {
-	const routes: SitemapRoute[] = [];
-
-	for (const locale of routing.locales) {
-		routes.push(
-			{
-				url: `${baseUrl}/${locale}`,
-				lastModified: new Date(),
-				changeFrequency: "weekly",
-				priority: 1.0,
-			},
-			{
-				url: `${baseUrl}/${locale}/privacy`,
-				lastModified: new Date(),
-				changeFrequency: "yearly",
-				priority: 0.5,
-			},
-			{
-				url: `${baseUrl}/${locale}/terms`,
-				lastModified: new Date(),
-				changeFrequency: "yearly",
-				priority: 0.5,
-			},
-			{
-				url: `${baseUrl}/${locale}/cookies`,
-				lastModified: new Date(),
-				changeFrequency: "yearly",
-				priority: 0.5,
-			},
-		);
-	}
-
-	return routes;
-}
-
 /**
  * Generate sitemap entries.
- * You can extend this to fetch dynamic routes from a CMS or database.
+ * Includes static routes and dynamic item routes.
  */
 async function getSitemapRoutes(): Promise<SitemapRoute[]> {
-	// Include static routes and localized routes
-	const routes = [...staticRoutes, ...generateLocalizedRoutes()];
+	const routes = [...staticRoutes];
 
-	// Example: Fetch dynamic routes from a CMS or database
-	// const dynamicRoutes = await fetchDynamicRoutes();
-	// routes.push(...dynamicRoutes);
+	// Fetch dynamic item routes
+	try {
+		const items = await getAllItems();
+		for (const item of items) {
+			routes.push({
+				url: `${baseUrl}/items/${item.id}`,
+				lastModified: item.updated_at || item.created_at,
+				changeFrequency: "weekly",
+				priority: 0.7,
+			});
+		}
+	} catch (error) {
+		console.error("Failed to fetch items for sitemap:", error);
+		// Continue without item routes if there's an error
+	}
 
 	return routes;
 }
