@@ -1,0 +1,95 @@
+{
+	"header": {
+		"home": "Home",
+		"features": "Features",
+		"contact": "Contact",
+		"getStarted": "Get Started",
+		"openMenu": "Open menu",
+		"closeMenu": "Close menu"
+	},
+	"footer": {
+		"product": "Product",
+		"company": "Company",
+		"legal": "Legal",
+		"features": "Features",
+		"pricing": "Pricing",
+		"documentation": "Documentation",
+		"about": "About",
+		"blog": "Blog",
+		"careers": "Careers",
+		"privacy": "Privacy",
+		"terms": "Terms",
+		"cookies": "Cookies",
+		"allRightsReserved": "All rights reserved."
+	},
+	"hero": {
+		"title": "Build Beautiful Websites",
+		"subtitle": "with Modern Tools",
+		"description": "A production-ready starter template for building modern websites and landing pages with Next.js, TypeScript, Tailwind CSS, and shadcn/ui.",
+		"getStarted": "Get Started",
+		"learnMore": "Learn More"
+	},
+	"features": {
+		"title": "Everything You Need",
+		"description": "A complete toolkit for building modern websites and landing pages.",
+		"lightningFast": {
+			"title": "Lightning Fast",
+			"description": "Built with Next.js 16 and optimized for performance. Get the best Core Web Vitals scores out of the box."
+		},
+		"typeSafe": {
+			"title": "Type Safe",
+			"description": "Full TypeScript support with strict mode enabled. Catch errors before they reach production."
+		},
+		"developerExperience": {
+			"title": "Developer Experience",
+			"description": "Pre-configured with Biome for linting and formatting. Focus on building, not configuring."
+		},
+		"productionReady": {
+			"title": "Production Ready",
+			"description": "Includes testing, CI/CD workflows, and deployment configurations. Ship faster with confidence."
+		}
+	},
+	"cta": {
+		"title": "Ready to Get Started?",
+		"description": "Start building your next website today with our production-ready starter template.",
+		"getStarted": "Get Started",
+		"viewOnGitHub": "View on GitHub"
+	},
+	"contact": {
+		"title": "Get in Touch",
+		"description": "Have a question or want to work together? Send us a message and we'll get back to you as soon as possible.",
+		"form": {
+			"name": "Name",
+			"namePlaceholder": "Your name",
+			"email": "Email",
+			"emailPlaceholder": "your.email@example.com",
+			"message": "Message",
+			"messagePlaceholder": "Your message...",
+			"sendMessage": "Send Message",
+			"sending": "Sending...",
+			"sendingAriaLabel": "Sending message",
+			"sendAriaLabel": "Send message",
+			"success": "Thank you! Your message has been sent successfully.",
+			"error": "Something went wrong. Please try again later."
+		}
+	},
+	"privacy": {
+		"title": "Privacy Policy",
+		"lastUpdated": "Last updated:",
+		"breadcrumb": "Privacy Policy"
+	},
+	"terms": {
+		"title": "Terms of Service",
+		"lastUpdated": "Last updated:",
+		"breadcrumb": "Terms of Service"
+	},
+	"cookies": {
+		"title": "Cookie Policy",
+		"lastUpdated": "Last updated:",
+		"breadcrumb": "Cookie Policy"
+	},
+	"common": {
+		"home": "Home",
+		"skipToContent": "Skip to main content"
+	}
+}

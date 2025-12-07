@@ -1,0 +1,123 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "npm: install",
+			"type": "shell",
+			"command": "npm install",
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "always",
+				"panel": "new"
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			}
+		},
+		{
+			"label": "npm: clean",
+			"type": "shell",
+			"command": "rm -rf .next",
+			"windows": {
+				"command": "if exist .next rmdir /s /q .next"
+			},
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "silent",
+				"panel": "dedicated"
+			}
+		},
+		{
+			"label": "npm: clean:all",
+			"type": "shell",
+			"command": "rm -rf .next node_modules",
+			"windows": {
+				"command": "if exist .next rmdir /s /q .next && if exist node_modules rmdir /s /q node_modules"
+			},
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "always",
+				"panel": "new"
+			}
+		},
+		{
+			"label": "npm: format",
+			"type": "shell",
+			"command": "npm run format",
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			}
+		},
+		{
+			"label": "npm: lint",
+			"type": "shell",
+			"command": "npm run lint",
+			"problemMatcher": "$eslint-stylish",
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			}
+		},
+		{
+			"label": "npm: lint:fix",
+			"type": "shell",
+			"command": "npm run lint:fix",
+			"problemMatcher": "$eslint-stylish",
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			}
+		},
+		{
+			"label": "npm: type-check",
+			"type": "shell",
+			"command": "npm run type-check",
+			"problemMatcher": "$tsc",
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			}
+		},
+		{
+			"label": "npm: build",
+			"type": "shell",
+			"command": "npm run build",
+			"problemMatcher": ["$tsc", "$eslint-stylish"],
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"label": "npm: test",
+			"type": "shell",
+			"command": "npm run test",
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			},
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			}
+		},
+		{
+			"label": "vercel: link",
+			"type": "shell",
+			"command": "vercel link",
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			}
+		}
+	]
+}
