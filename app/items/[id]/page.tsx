@@ -6,6 +6,7 @@ import { ReservationForm } from "@/components/reservation-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { getItemById } from "@/lib/actions/items";
+import { formatCurrency } from "@/lib/currency";
 import {
 	createBreadcrumbListSchema,
 	createProductSchema,
@@ -110,7 +111,7 @@ export default async function ItemDetailPage({
 										{categoryLabels[item.category] || item.category}
 									</p>
 									<p className="mt-4 text-3xl font-bold text-gray-900">
-										${item.price.toFixed(2)}
+										{formatCurrency(item.price)}
 									</p>
 								</div>
 								<Separator />

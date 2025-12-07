@@ -1,3 +1,5 @@
+import { DEFAULT_CURRENCY } from "@/lib/currency";
+
 // JSON-LD Schema.org types
 type WithContext<T> = T & { "@context": "https://schema.org" };
 
@@ -269,7 +271,7 @@ export interface ProductSchemaOptions {
 	image?: string[];
 	/** Product price */
 	price: number;
-	/** Price currency (default: "USD") */
+	/** Price currency (default: "EUR") */
 	priceCurrency?: string;
 	/** Product category */
 	category?: string;
@@ -309,7 +311,7 @@ export function createProductSchema(
 		offers: {
 			"@type": "Offer",
 			price: options.price.toFixed(2),
-			priceCurrency: options.priceCurrency || "USD",
+			priceCurrency: options.priceCurrency || DEFAULT_CURRENCY,
 			availability:
 				options.availability || "https://schema.org/InStock",
 		},
