@@ -5,6 +5,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { ITEM_PLACEHOLDER_IMAGE } from "@/lib/images";
 
 interface ImageGalleryProps {
 	images: string[];
@@ -13,34 +14,33 @@ interface ImageGalleryProps {
 
 export function ImageGallery({ images, title }: ImageGalleryProps) {
 	const [currentIndex, setCurrentIndex] = useState(0);
-
-	if (images.length === 0) {
-		return (
-			<div className="w-full h-96 bg-gray-200 rounded-lg flex items-center justify-center">
-				<p className="text-gray-400">No image available</p>
-			</div>
-		);
-	}
+	const galleryImages = images.length > 0 ? images : [ITEM_PLACEHOLDER_IMAGE];
+	const hasMultipleImages = galleryImages.length > 1;
+	const isPlaceholderOnly = images.length === 0;
 
 	const goToPrevious = () => {
-		setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+		setCurrentIndex((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1));
 	};
 
 	const goToNext = () => {
-		setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+		setCurrentIndex((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1));
 	};
 
 	return (
 		<div className="space-y-4">
 			<div className="relative w-full aspect-square bg-gray-100 rounded-lg overflow-hidden">
 				<Image
-					src={images[currentIndex]}
-					alt={`${title} - Image ${currentIndex + 1}`}
+					src={galleryImages[currentIndex]}
+					alt={
+						isPlaceholderOnly
+							? `${title} placeholder image`
+							: `${title} - Image ${currentIndex + 1}`
+					}
 					fill
 					className="object-contain"
 					priority={currentIndex === 0}
 				/>
-				{images.length > 1 && (
+				{hasMultipleImages && (
 					<>
 						<Button
 							variant="outline"
@@ -61,12 +61,12 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
 							<ChevronRight className="h-4 w-4" />
 						</Button>
 						<div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/50 text-white px-2 py-1 rounded text-sm">
-							{currentIndex + 1} / {images.length}
+							{currentIndex + 1} / {galleryImages.length}
 						</div>
 					</>
 				)}
 			</div>
-			{images.length > 1 && (
+			{hasMultipleImages && (
 				<div className="grid grid-cols-4 gap-2">
 					{images.map((image, index) => (
 						<button

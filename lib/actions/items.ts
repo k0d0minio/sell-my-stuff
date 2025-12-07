@@ -210,11 +210,10 @@ export async function createItemWithImages(
 			(file) => file instanceof File && file.size > 0,
 		);
 
-		if (validImageFiles.length === 0) {
-			return { success: false, error: "At least one image is required" };
+		let imageUrls: string[] = [];
+		if (validImageFiles.length > 0) {
+			imageUrls = await uploadImages(validImageFiles, `item-${Date.now()}`);
 		}
-
-		const imageUrls = await uploadImages(validImageFiles, `item-${Date.now()}`);
 
 		// Create item
 		const result = await createItem({
@@ -227,7 +226,9 @@ export async function createItemWithImages(
 
 		if (!result.success) {
 			// Clean up uploaded images if item creation fails
-			await deleteImages(imageUrls);
+			if (imageUrls.length > 0) {
+				await deleteImages(imageUrls);
+			}
 			return result;
 		}
 
@@ -284,14 +285,6 @@ export async function updateItemWithImages(
 
 		// Combine kept existing images with new images
 		const allImages = [...existingImagesToKeep, ...newImageUrls];
-
-		if (allImages.length === 0) {
-			// Clean up newly uploaded images if no images remain
-			if (newImageUrls.length > 0) {
-				await deleteImages(newImageUrls);
-			}
-			return { success: false, error: "At least one image is required" };
-		}
 
 		// Update item
 		const result = await updateItem(id, {
