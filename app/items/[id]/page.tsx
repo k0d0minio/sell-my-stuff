@@ -12,6 +12,7 @@ import {
 	createProductSchema,
 	generateStructuredDataScript,
 } from "@/lib/seo/structured-data";
+import { ensureItemImages } from "@/lib/images";
 import type { Metadata } from "next";
 
 export async function generateMetadata({
@@ -29,6 +30,7 @@ export async function generateMetadata({
 	}
 
 	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+	const openGraphImages = ensureItemImages(item.images, { baseUrl: siteUrl });
 
 	return {
 		title: item.title,
@@ -36,7 +38,7 @@ export async function generateMetadata({
 		openGraph: {
 			title: item.title,
 			description: item.description,
-			images: item.images.length > 0 ? [item.images[0]] : [],
+			images: openGraphImages,
 			url: `${siteUrl}/items/${id}`,
 		},
 	};
@@ -66,13 +68,14 @@ export default async function ItemDetailPage({
 	};
 
 	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+	const productImages = ensureItemImages(item.images, { baseUrl: siteUrl });
 
 	// Create structured data
 	const productSchema = createProductSchema({
 		name: item.title,
 		description: item.description,
 		price: item.price,
-		image: item.images,
+		image: productImages,
 		category: categoryLabels[item.category] || item.category,
 	});
 

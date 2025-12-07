@@ -17,6 +17,7 @@ import { deleteItem, getAllItems } from "@/lib/actions/items";
 import { formatCurrency } from "@/lib/currency";
 import type { Item } from "@/lib/db/types";
 import Image from "next/image";
+import { ITEM_PLACEHOLDER_IMAGE } from "@/lib/images";
 
 export function AdminItemsList() {
 	const router = useRouter();
@@ -82,16 +83,18 @@ export function AdminItemsList() {
 					</CardHeader>
 					<CardContent>
 						<div className="flex gap-4">
-							{item.images.length > 0 && (
-								<div className="relative w-24 h-24 flex-shrink-0">
-									<Image
-										src={item.images[0]}
-										alt={item.title}
-										fill
-										className="object-cover rounded"
-									/>
-								</div>
-							)}
+							<div className="relative w-24 h-24 flex-shrink-0">
+								<Image
+									src={item.images[0] ?? ITEM_PLACEHOLDER_IMAGE}
+									alt={
+										item.images.length > 0
+											? item.title
+											: `${item.title} placeholder image`
+									}
+									fill
+									className="object-cover rounded"
+								/>
+							</div>
 							<p className="text-sm text-gray-600 line-clamp-3 flex-1">
 								{item.description}
 							</p>

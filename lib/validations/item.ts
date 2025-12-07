@@ -7,7 +7,7 @@ export const itemSchema = z.object({
 	description: z.string().min(10, "Description must be at least 10 characters"),
 	price: z.number().positive("Price must be greater than 0"),
 	category: itemCategorySchema,
-	images: z.array(z.string().url()).min(1, "At least one image is required"),
+	images: z.array(z.string().url()).default([]),
 });
 
 export type ItemFormData = z.infer<typeof itemSchema>;
