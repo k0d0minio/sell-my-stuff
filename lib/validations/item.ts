@@ -12,7 +12,7 @@ export const itemSchema = z.object({
 
 export type ItemFormData = z.infer<typeof itemSchema>;
 
-export const itemUpdateSchema = itemSchema.partial().required({ id: true }).extend({
+export const itemUpdateSchema = itemSchema.partial().extend({
 	id: z.number().int().positive(),
 });
 
