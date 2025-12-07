@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
+import { formatCurrency } from "@/lib/currency";
 import type { Item } from "@/lib/db/types";
 
 interface ItemCardProps {
@@ -45,7 +46,7 @@ export function ItemCard({ item }: ItemCardProps) {
 							</div>
 							<div className="mt-4">
 								<p className="text-xl font-bold text-gray-900">
-									${item.price.toFixed(2)}
+									{formatCurrency(item.price)}
 								</p>
 							</div>
 						</div>

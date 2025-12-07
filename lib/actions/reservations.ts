@@ -2,6 +2,7 @@
 
 import { headers } from "next/headers";
 import { Resend } from "resend";
+import { formatCurrency } from "@/lib/currency";
 import { query } from "@/lib/db/client";
 import { collectErrorContext } from "@/lib/errors/reporter";
 import { getLinearErrorReporter } from "@/lib/linear/errors";
@@ -95,7 +96,7 @@ export async function createReservation(
 			const emailHtml = `
 				<h2>New Item Reservation</h2>
 				<p><strong>Item:</strong> ${item.title}</p>
-				<p><strong>Price:</strong> $${item.price.toFixed(2)}</p>
+				<p><strong>Price:</strong> ${formatCurrency(item.price)}</p>
 				<p><strong>Category:</strong> ${item.category}</p>
 				<hr>
 				<h3>Customer Information</h3>
@@ -114,7 +115,7 @@ export async function createReservation(
 New Item Reservation
 
 Item: ${item.title}
-Price: $${item.price.toFixed(2)}
+Price: ${formatCurrency(item.price)}
 Category: ${item.category}
 
 Customer Information:

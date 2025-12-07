@@ -14,6 +14,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { deleteItem, getAllItems } from "@/lib/actions/items";
+import { formatCurrency } from "@/lib/currency";
 import type { Item } from "@/lib/db/types";
 import Image from "next/image";
 
@@ -74,7 +75,7 @@ export function AdminItemsList() {
 							<div className="flex-1">
 								<CardTitle className="text-lg">{item.title}</CardTitle>
 								<CardDescription>
-									Category: {item.category.charAt(0).toUpperCase() + item.category.slice(1)} • Price: ${item.price.toFixed(2)}
+									Category: {item.category.charAt(0).toUpperCase() + item.category.slice(1)} • Price: {formatCurrency(item.price)}
 								</CardDescription>
 							</div>
 						</div>
