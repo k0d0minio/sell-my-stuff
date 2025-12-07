@@ -101,21 +101,7 @@ export function Footer() {
 					</div>
 
 					{/* Legal Links */}
-					<nav aria-label="Legal navigation">
-						<h4 className="mb-4 text-sm font-semibold">Legal</h4>
-						<ul className="space-y-2">
-							{footerLinks.legal.map((link) => (
-								<li key={link.href}>
-									<Link
-										href={link.href}
-										className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-									>
-										{link.label}
-									</Link>
-								</li>
-							))}
-						</ul>
-					</nav>
+	
 				</div>
 
 				<Separator className="my-8" />
